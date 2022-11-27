@@ -1,6 +1,6 @@
 import telebot   # Подключаем модуль telebot
 
-bot = telebot.TeleBot('5977407727:AAEeaMcnRtHTojJkju1AHFs9YkBiK-lK_2E')
+bot = telebot.TeleBot('5953666248:AAHrd1eIGi65BHgJmUprnEuEvFBOdc6UoPk')
 
 value = ''       # Хранение текущего значения калькулятора
 old_value = ''
@@ -39,7 +39,6 @@ def get_message(message):
         bot.send_message(message.from_user.id, '0', reply_markup = keyboard)
     else:
         bot.send_message(message.from_user.id, value, reply_markup = keyboard)
-
     bot.send_message(message.from_user.id, 'Привет!', reply_markup = keyboard)   # Приветствие пользователя
 
 @bot.callback_query_handler(func = lambda call: True)   # Добавляем новый обработчик событий для вызова при нажатии на кнопку
