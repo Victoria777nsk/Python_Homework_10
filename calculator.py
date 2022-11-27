@@ -5,7 +5,7 @@ bot = telebot.TeleBot('5953666248:AAHrd1eIGi65BHgJmUprnEuEvFBOdc6UoPk')
 value = ''       # Хранение текущего значения калькулятора
 old_value = ''
 
-keyboard = telebot.types.InlineKeyboardMarkup()     # Создаем клавиатуру (кнопки)
+keyboard = telebot.types.InlineKeyboardMarkup()   # Создаем клавиатуру (кнопки)
 keyboard.row( telebot.types.InlineKeyboardButton(' ', callback_data = 'no'),
               telebot.types.InlineKeyboardButton('C', callback_data = 'C'),
               telebot.types.InlineKeyboardButton('<=', callback_data = '<='),
@@ -38,12 +38,10 @@ def get_message(message):
     if value == '':
         bot.send_message(message.from_user.id, '0', reply_markup = keyboard)
     else:
-        bot.send_message(message.from_user.id, value, reply_markup = keyboard)
-    bot.send_message(message.from_user.id, 'Привет!', reply_markup = keyboard)   # Приветствие пользователя
+        bot.send_message(message.from_user.id, value, reply_markup = keyboard)   # Приветствие пользователя + вывод клавиатуры  
 
 @bot.callback_query_handler(func = lambda call: True)   # Добавляем новый обработчик событий для вызова при нажатии на кнопку
-
-def callnack_func(query):
+def callback_func(query):
     global value, old_value   # Доступ к переменным, объявленным в начале
     data = query.data         # Аргумент, который возвращает кнопка (чему равен callback_data)
 
@@ -61,15 +59,15 @@ def callnack_func(query):
             value = 'Ошибка!'
     else:
         value += data
-    
+
     if (value != old_value and value != '') or ('0' != old_value and value == ''):
         if value == '':
-            bot.edit_message_text(chat_id = query.message.chat.id, message_id = query.message.message.id, text = '0', reply_markup = keyboard)
+            bot.edit_message_text(chat_id = query.message.chat.id, message_id = query.message.id, text = '0', reply_markup = keyboard)
             old_value = '0'        
         else:
-            bot.edit_message_text(chat_id = query.message.chat.id, message_id = query.message.message.id, text = value, reply_markup = keyboard)
+            bot.edit_message_text(chat_id = query.message.chat.id, message_id = query.message.id, text = value, reply_markup = keyboard)
             old_value = value
     
     if value == 'Ошибка!': value = ''
 
-bot.polling(none_stop = False, interval = 0)     # Команда для запуска
+bot.polling(none_stop = False, interval = 0)     # Команда для запуска бота
