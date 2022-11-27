@@ -1,6 +1,6 @@
 import telebot   # Подключаем модуль telebot
 
-bot = telebot.TeleBot('5854860711:AAEOTG6KvTt9iWROXSLWLVO0RDmPnGER2Fg')
+bot = telebot.TeleBot('5977407727:AAEeaMcnRtHTojJkju1AHFs9YkBiK-lK_2E')
 
 value = ''       # Хранение текущего значения калькулятора
 old_value = ''
@@ -73,4 +73,4 @@ def callnack_func(query):
     
     if value == 'Ошибка!': value = ''
 
-bot.polling(none_stop = False, interval = 0)   # Команда для запуска
+bot.polling(none_stop = False, interval = 0)     # Команда для запуска
